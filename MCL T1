@@ -216,8 +216,11 @@ if ($actualExe) {
     Write-ColoredLine "[INFO] Close Process Explorer to finish the script." Yellow
     $process.WaitForExit()
 
-    # ТОЛЬКО ПОСЛЕ ЗАКРЫТИЯ
+    # ТОЛЬКО ПОСЛЕ ЗАКРЫТИЯ ПИШЕМ ЭТО
     Write-ColoredLine "[SUCCESS] Success Rate: 100% (1 / 1)." Green
-    Write-ColoredLine "Press Enter to exit." Yellow
-    Read-Host
+
+    # А ТЕПЕРЬ ПАУЗА, КОТОРАЯ ТОЧНО СРАБОТАЕТ
+    Write-Host ""
+    Write-Host "Press any key to close this window ..." -ForegroundColor Yellow
+    $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 }
