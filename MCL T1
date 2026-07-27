@@ -56,7 +56,7 @@ Write-ColoredLine "=== Credits ===" Yellow
 Write-ColoredLine "Made by @ravenader1" White
 Write-ColoredLine "Made by @cyberthreats" White
 Write-Host ""
-Write-Host "Press Enter to continue..."
+Write-Host "Press Enter to continue..." -ForegroundColor Yellow
 Read-Host
 Clear-Host
 
@@ -120,7 +120,7 @@ Write-Section "Binary Sig" $powershellSigOutput
 Write-Host ""
 Write-Host ("Success Rate: 100% (13 / 13)") -ForegroundColor Green
 Write-Host ""
-Write-Host "Press Enter to continue..."
+Write-Host "Press Enter to continue..." -ForegroundColor Yellow
 Read-Host
 Clear-Host
 
@@ -221,10 +221,13 @@ if ($actualExe) {
 
     Write-ColoredLine "[SUCCESS] Process Explorer window maximized." Green
     Write-ColoredLine "[SUCCESS] Process Explorer launched successfully." Green
-}
 
-Write-Host ""
-Write-Host "[SUCCESS] Success Rate: 100% (1 / 1)." Green
-Write-Host ""
-Write-Host "Press Enter to exit." -ForegroundColor Yellow
-Read-Host
+    # ЖДЁМ ЗАКРЫТИЯ ПРОГРАММЫ
+    $process.WaitForExit()
+
+    # ТОЛЬКО ПОСЛЕ ЗАКРЫТИЯ
+    Write-ColoredLine "[SUCCESS] Success Rate: 100% (1 / 1)." Green
+    Write-Host ""
+    Write-Host "Press Enter to exit." -ForegroundColor Yellow
+    Read-Host
+}
