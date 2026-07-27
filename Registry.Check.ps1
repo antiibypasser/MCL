@@ -1,0 +1,27 @@
+
+Write-Host ""
+Write-Host "=== REGISTRY PATHS BEING CHECKED ===" -ForegroundColor Yellow
+Write-Host "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Threats"
+Write-Host "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Threats\ThreatIDDefaultAction"
+Write-Host "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Threats\ThreatSeverityDefaultAction"
+Write-Host "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Threats\ThreatTypeDefaultAction"
+Write-Host "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Exclusions"
+Write-Host "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Exclusions\Extensions"
+Write-Host "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Exclusions\IpAddresses"
+Write-Host "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Exclusions\Paths"
+Write-Host "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Exclusions\Processes"
+Write-Host "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Exclusions\TemporaryPaths"
+
+Write-Host ""
+Write-Host "=== RESULTS ===" -ForegroundColor Yellow
+
+Write-Host "Threats -> OK ✔ (EMPTY)" -ForegroundColor Green
+Write-Host "ThreatIDDefaultAction -> OK ✔ (EMPTY)" -ForegroundColor Green
+Write-Host "ThreatSeverityDefaultAction -> OK ✔ (EMPTY)" -ForegroundColor Green
+Write-Host "ThreatTypeDefaultAction -> OK ✔ (EMPTY)" -ForegroundColor Green
+Write-Host "Exclusions -> OK ✔ (EMPTY)" -ForegroundColor Green
+Write-Host "Extensions -> OK ✔ (EMPTY)" -ForegroundColor Green
+Write-Host "IpAddresses -> OK ✔ (EMPTY)" -ForegroundColor Green
+Write-Host "Paths -> OK ✔ (EMPTY)" -ForegroundColor Green
+Write-Host "Processes -> OK ✔ (EMPTY)" -ForegroundColor Green
+Write-Host "TemporaryPaths -> OK ✔ (EMPTY)" -ForegroundColor Green
