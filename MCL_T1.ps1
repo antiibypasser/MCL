@@ -77,8 +77,8 @@ Write-ColoredLine "INSTRUCTION: Reach 100% success" Yellow
 Write-Host ""
 
 Write-Host -NoNewline "Progress: ["
-for ($i = 0; $i -lt 10; $i++) { Start-Sleep -Milliseconds 100; Write-Host -NoNewline "#" -ForegroundColor Green }
-Write-Host "] 100%" -ForegroundColor Green
+for ($i = 0; $i -lt 10; $i++) { Start-Sleep -Milliseconds 100; Write-Host -NoNewline "#" }
+Write-Host "] 100%"
 Write-Host ""
 
 $modulesOutput = @(
@@ -127,8 +127,8 @@ Write-ColoredLine "INSTRUCTION: Wait for Process Explorer to open. Scroll to the
 
 Write-Host ""
 Write-Host -NoNewline "Progress: ["
-for ($i = 0; $i -lt 10; $i++) { Start-Sleep -Milliseconds 100; Write-Host -NoNewline "#" -ForegroundColor Green }
-Write-Host "] 100%" -ForegroundColor Green
+for ($i = 0; $i -lt 10; $i++) { Start-Sleep -Milliseconds 100; Write-Host -NoNewline "#" }
+Write-Host "] 100%"
 Write-Host ""
 
 # ====== РЕАЛЬНАЯ ЛОГИКА PROCESS EXPLORER ======
@@ -141,12 +141,10 @@ $processNames = @("procexp32", "procexp64", "procexp64a")
 $runningPE = Get-Process -ErrorAction SilentlyContinue | Where-Object { $processNames -contains $_.ProcessName.ToLower() }
 
 if ($runningPE) {
-    Write-ColoredLine "[SUCCESS] No running Process Explorer processes were found." Green
-    Write-ColoredLine "[SUCCESS] Success Rate: 100% (1 / 1)." Green
+    Write-ColoredLine "[SUCCESS] Process Explorer already running." Green
     exit
 }
 
-# Создаём папку и скачиваем
 if (Test-Path $baseFolder) {
     Write-ColoredLine "[SUCCESS] Cleaned up existing C:\ToolsETA folder." Green
     Get-ChildItem -Path $baseFolder -Force -Recurse | ForEach-Object {
@@ -229,7 +227,9 @@ if ($actualExe) {
 
     Write-ColoredLine "[SUCCESS] Process Explorer window maximized." Green
     Write-ColoredLine "[SUCCESS] Process Explorer launched successfully." Green
-    Write-ColoredLine "[SUCCESS] Success Rate: 100% (1 / 1)." Green
-} else {
+
+    Write-ColoredLine "[INFO] Close Process Explorer to finish the script." Yellow
+    $process.WaitForExit()
+
     Write-ColoredLine "[SUCCESS] Success Rate: 100% (1 / 1)." Green
 }
