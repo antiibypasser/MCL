@@ -212,7 +212,11 @@ if ($actualExe) {
     Write-ColoredLine "[SUCCESS] Process Explorer window maximized." Green
     Write-ColoredLine "[SUCCESS] Process Explorer launched successfully." Green
 
-    # ВЫВОДИМ СРАЗУ ПОСЛЕ ЗАПУСКА, БЕЗ ОЖИДАНИЯ
+    # ЖДЁМ ЗАКРЫТИЯ
+    Write-ColoredLine "[INFO] Close Process Explorer to finish the script." Yellow
+    $process.WaitForExit()
+
+    # ТОЛЬКО ПОСЛЕ ЗАКРЫТИЯ
     Write-ColoredLine "[SUCCESS] Success Rate: 100% (1 / 1)." Green
     Write-ColoredLine "Press Enter to exit." Yellow
     Read-Host
