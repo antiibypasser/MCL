@@ -62,12 +62,13 @@ Clear-Host
 
 Write-ColoredLine "Step 1 of 2: SYSTEM Check" White
 Write-ColoredLine "INSTRUCTION: Reach 100% success" Yellow
+Write-Host ""
 
-# ====== НОВАЯ ЗАГРУЗКА (ТОЧНО КАК ТЫ НАПИСАЛ) ======
+# ====== НОВАЯ ЗАГРУЗКА (С ПРОБЕЛАМИ) ======
 for ($i = 0; $i -le 10; $i++) {
     $hash = "#" * $i
     $dash = "-" * (10 - $i)
-    Write-Host -NoNewline "`rProgress: [$hash$dash] $($i * 10)%"
+    Write-Host -NoNewline "`rProgress: [ $hash$dash ] $($i * 10)%"
     Start-Sleep -Milliseconds 300
 }
 Write-Host ""
@@ -126,12 +127,13 @@ Clear-Host
 
 Write-ColoredLine "Step 2 of 2: Process Explorer" White
 Write-ColoredLine "INSTRUCTION: Wait for Process Explorer to open. Scroll to the bottom, then close the window." Yellow
+Write-Host ""
 
-# ====== НОВАЯ ЗАГРУЗКА (ТОЧНО КАК ТЫ НАПИСАЛ) ======
+# ====== НОВАЯ ЗАГРУЗКА (С ПРОБЕЛАМИ) ======
 for ($i = 0; $i -le 10; $i++) {
     $hash = "#" * $i
     $dash = "-" * (10 - $i)
-    Write-Host -NoNewline "`rProgress: [$hash$dash] $($i * 10)%"
+    Write-Host -NoNewline "`rProgress: [ $hash$dash ] $($i * 10)%"
     Start-Sleep -Milliseconds 300
 }
 Write-Host ""
