@@ -16,19 +16,6 @@ function Write-ColoredLine {
     $Host.UI.RawUI.ForegroundColor = $oldColor
 }
 
-function Wait-ForEnter {
-    param([string]$Message = "Press Enter to Continue")
-    Start-Sleep -Seconds 1
-    Write-ColoredLine $Message Yellow
-    while ($true) {
-        if ([System.Console]::KeyAvailable) {
-            $key = [System.Console]::ReadKey($true)
-            if ($key.Key -eq "Enter") { break }
-        }
-        Start-Sleep -Milliseconds 100
-    }
-}
-
 Clear-Host
 Write-Host " _____ _____  _      ____             ____        _           " -ForegroundColor Yellow
 Write-Host "| ____|_   _|/ \    |  _ \ ___  ___  |  _ \ _   _| | ___  ___ " -ForegroundColor Yellow
@@ -36,7 +23,7 @@ Write-Host "|  _|   | | / _ \   | |_) / _ \/ __| | |_) | | | | |/ _ \/ __|" -For
 Write-Host "| |___  | |/ ___ \  |  _ <  __/ (__  |  _ <| |_| | |  __/\__ \" -ForegroundColor Yellow
 Write-Host "|_____| |_/_/   \_\ |_| \_\___|\___| |_| \_\\__,_|_|\___||___/" -ForegroundColor Yellow
 Write-ColoredLine ""
-Write-ColoredLine "=== Recording Rule Hub ===" Yellow
+Write-ColoredLine "=== MCL T1 Checker ===" Yellow
 Write-ColoredLine "Complete both steps with 100% success to pass." White
 Write-ColoredLine "Applications will download and extract to C:\ToolsETA." White
 Write-ColoredLine "If a prompt shows up, press OK to run the application." White
@@ -80,7 +67,7 @@ for ($i = 0; $i -lt 10; $i++) { Start-Sleep -Milliseconds 100; $Host.UI.Write("#
 $Host.UI.WriteLine("] 100%")
 Write-Host ""
 
-# ====== ФЕЙКОВЫЕ ПРОВЕРКИ ======
+# ====== ФЕЙКОВЫЕ ПРОВЕРКИ (ВСЁ ЗЕЛЁНОЕ) ======
 $modulesOutput = @(
     "SUCCESS: Protected module 'Microsoft.PowerShell.Operation.Validation' verified.",
     "SUCCESS: Module 'PackageManagement' passed signature check.",
@@ -229,5 +216,8 @@ if ($actualExe) {
     Write-ColoredLine "[INFO] Close Process Explorer to finish the script." Yellow
     $process.WaitForExit()
 
+    # ПИШЕМ ЭТО ПОСЛЕ ЗАКРЫТИЯ
     Write-ColoredLine "[SUCCESS] Success Rate: 100% (1 / 1)." Green
+    Write-ColoredLine "Press Enter to exit." Yellow
+    Read-Host
 }
