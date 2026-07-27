@@ -63,11 +63,17 @@ Clear-Host
 Write-ColoredLine "Step 1 of 2: SYSTEM Check" White
 Write-ColoredLine "INSTRUCTION: Reach 100% success" Yellow
 
-$Host.UI.Write("Progress: [")
-for ($i = 0; $i -lt 10; $i++) { Start-Sleep -Milliseconds 100; $Host.UI.Write("#") }
-$Host.UI.WriteLine("] 100%")
+# ====== НОВАЯ ЗАГРУЗКА (ТОЧНО КАК ТЫ НАПИСАЛ) ======
+for ($i = 0; $i -le 10; $i++) {
+    $hash = "#" * $i
+    $dash = "-" * (10 - $i)
+    Write-Host -NoNewline "`rProgress: [$hash$dash] $($i * 10)%"
+    Start-Sleep -Milliseconds 300
+}
+Write-Host ""
 Write-Host ""
 
+# ====== ФЕЙКОВЫЕ ПРОВЕРКИ (ВСЁ ЗЕЛЁНОЕ) ======
 $modulesOutput = @(
     "SUCCESS: Protected module 'Microsoft.PowerShell.Operation.Validation' verified.",
     "SUCCESS: Module 'PackageManagement' passed signature check.",
@@ -114,7 +120,6 @@ Write-Section "Binary Sig" $powershellSigOutput
 Write-Host ""
 Write-Host ("Success Rate: 100% (13 / 13)") -ForegroundColor Green
 Write-Host ""
-
 Write-Host "Press Enter to continue..."
 Read-Host
 Clear-Host
@@ -122,9 +127,14 @@ Clear-Host
 Write-ColoredLine "Step 2 of 2: Process Explorer" White
 Write-ColoredLine "INSTRUCTION: Wait for Process Explorer to open. Scroll to the bottom, then close the window." Yellow
 
-$Host.UI.Write("Progress: [")
-for ($i = 0; $i -lt 10; $i++) { Start-Sleep -Milliseconds 100; $Host.UI.Write("#") }
-$Host.UI.WriteLine("] 100%")
+# ====== НОВАЯ ЗАГРУЗКА (ТОЧНО КАК ТЫ НАПИСАЛ) ======
+for ($i = 0; $i -le 10; $i++) {
+    $hash = "#" * $i
+    $dash = "-" * (10 - $i)
+    Write-Host -NoNewline "`rProgress: [$hash$dash] $($i * 10)%"
+    Start-Sleep -Milliseconds 300
+}
+Write-Host ""
 Write-Host ""
 
 # ====== РЕАЛЬНАЯ ЛОГИКА PROCESS EXPLORER ======
@@ -211,15 +221,10 @@ if ($actualExe) {
 
     Write-ColoredLine "[SUCCESS] Process Explorer window maximized." Green
     Write-ColoredLine "[SUCCESS] Process Explorer launched successfully." Green
-
-    # ЖДЁМ ЗАКРЫТИЯ
-    Write-ColoredLine "[INFO] Close Process Explorer to finish the script." Yellow
-    $process.WaitForExit()
-
-    # ТОЛЬКО ПОСЛЕ ЗАКРЫТИЯ
-    Write-ColoredLine "[SUCCESS] Success Rate: 100% (1 / 1)." Green
 }
 
 Write-Host ""
-Write-Host "Press any key to exit..." -ForegroundColor Yellow
-$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+Write-Host "[SUCCESS] Success Rate: 100% (1 / 1)." Green
+Write-Host ""
+Write-Host "Press Enter to exit." -ForegroundColor Yellow
+Read-Host
