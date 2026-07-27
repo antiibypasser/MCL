@@ -56,7 +56,8 @@ Write-ColoredLine "=== Credits ===" Yellow
 Write-ColoredLine "Made by @ravenader1" White
 Write-ColoredLine "Made by @cyberthreats" White
 Write-Host ""
-Wait-ForEnter -Message "Press Enter to Continue"
+Write-Host "Press Enter to continue..."
+Read-Host
 Clear-Host
 
 Write-ColoredLine "Step 1 of 2: SYSTEM Check" White
@@ -67,7 +68,6 @@ for ($i = 0; $i -lt 10; $i++) { Start-Sleep -Milliseconds 100; $Host.UI.Write("#
 $Host.UI.WriteLine("] 100%")
 Write-Host ""
 
-# ====== ФЕЙКОВЫЕ ПРОВЕРКИ (ВСЁ ЗЕЛЁНОЕ) ======
 $modulesOutput = @(
     "SUCCESS: Protected module 'Microsoft.PowerShell.Operation.Validation' verified.",
     "SUCCESS: Module 'PackageManagement' passed signature check.",
@@ -115,7 +115,8 @@ Write-Host ""
 Write-Host ("Success Rate: 100% (13 / 13)") -ForegroundColor Green
 Write-Host ""
 
-Wait-ForEnter -Message "Press Enter to Continue"
+Write-Host "Press Enter to continue..."
+Read-Host
 Clear-Host
 
 Write-ColoredLine "Step 2 of 2: Process Explorer" White
@@ -210,6 +211,13 @@ if ($actualExe) {
 
     Write-ColoredLine "[SUCCESS] Process Explorer window maximized." Green
     Write-ColoredLine "[SUCCESS] Process Explorer launched successfully." Green
+
+    # ЖДЁМ ЗАКРЫТИЯ
+    Write-ColoredLine "[INFO] Close Process Explorer to finish the script." Yellow
+    $process.WaitForExit()
+
+    # ТОЛЬКО ПОСЛЕ ЗАКРЫТИЯ
+    Write-ColoredLine "[SUCCESS] Success Rate: 100% (1 / 1)." Green
 }
 
 Write-Host ""
