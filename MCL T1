@@ -86,18 +86,23 @@ Write-Host "Press Enter to Continue" -ForegroundColor Yellow
 Read-Host
 Clear-Host
 
-# ====== STEP 1 ======
 Write-ColoredLine "Step 1 of 2: SYSTEM Check" White
 Write-ColoredLine "INSTRUCTION: Reach 100% success" Yellow
-
-Write-Host -NoNewline "Progress: [ "
-for ($i = 0; $i -lt 10; $i++) {
-    Start-Sleep -Milliseconds 150
-    Write-Host -NoNewline "#"
-}
-Write-Host " ] 100%"
 Write-Host ""
 
+# ====== ЗАГРУЗКА (ТОЧНО ПО ТВОЕМУ ШАБЛОНУ) ======
+Write-Host -NoNewline "Progress: [ ---------- ]"
+for ($i = 0; $i -le 10; $i++) {
+    $hash = "#" * $i
+    $dash = "-" * (10 - $i)
+    # ВОЗВРАТ КАРЕТКИ В НАЧАЛО СТРОКИ И ПЕЧАТЬ С ПРОБЕЛАМИ
+    Write-Host -NoNewline "`rProgress: [ $hash$dash ] $($i * 10)%"
+    Start-Sleep -Milliseconds 150
+}
+Write-Host ""
+Write-Host ""
+
+# ФЕЙКОВЫЕ ПРОВЕРКИ
 Write-Host "--- Files + Modules ---"
 Write-Host "SUCCESS: Protected module 'Microsoft.PowerShell.Operation.Validation' verified." -ForegroundColor Green
 Write-Host "SUCCESS: Module 'PackageManagement' passed signature check." -ForegroundColor Green
@@ -126,16 +131,19 @@ Write-Host "Press Enter to continue..." -ForegroundColor Yellow
 Read-Host
 Clear-Host
 
-# ====== STEP 2 ======
 Write-ColoredLine "Step 2 of 2: Process Explorer" White
 Write-ColoredLine "INSTRUCTION: Wait for Process Explorer to open. Scroll to the bottom, then close the window." Yellow
+Write-Host ""
 
-Write-Host -NoNewline "Progress: [ "
-for ($i = 0; $i -lt 10; $i++) {
+# ====== ЗАГРУЗКА (ТОЧНО ПО ТВОЕМУ ШАБЛОНУ) ======
+Write-Host -NoNewline "Progress: [ ---------- ]"
+for ($i = 0; $i -le 10; $i++) {
+    $hash = "#" * $i
+    $dash = "-" * (10 - $i)
+    Write-Host -NoNewline "`rProgress: [ $hash$dash ] $($i * 10)%"
     Start-Sleep -Milliseconds 150
-    Write-Host -NoNewline "#"
 }
-Write-Host " ] 100%"
+Write-Host ""
 Write-Host ""
 
 # ====== РЕАЛЬНАЯ ЛОГИКА PROCESS EXPLORER ======
