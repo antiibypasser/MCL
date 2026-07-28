@@ -90,7 +90,6 @@ Clear-Host
 Write-ColoredLine "Step 1 of 2: SYSTEM Check" White
 Write-ColoredLine "INSTRUCTION: Reach 100% success" Yellow
 
-# ПРОГРЕСС-БАР (ОДНА СТРОКА, 150 мс)
 Write-Host -NoNewline "Progress: [ "
 for ($i = 0; $i -lt 10; $i++) {
     Start-Sleep -Milliseconds 150
@@ -99,7 +98,6 @@ for ($i = 0; $i -lt 10; $i++) {
 Write-Host " ] 100%"
 Write-Host ""
 
-# ФЕЙКОВЫЕ ПРОВЕРКИ
 Write-Host "--- Files + Modules ---"
 Write-Host "SUCCESS: Protected module 'Microsoft.PowerShell.Operation.Validation' verified." -ForegroundColor Green
 Write-Host "SUCCESS: Module 'PackageManagement' passed signature check." -ForegroundColor Green
@@ -132,7 +130,6 @@ Clear-Host
 Write-ColoredLine "Step 2 of 2: Process Explorer" White
 Write-ColoredLine "INSTRUCTION: Wait for Process Explorer to open. Scroll to the bottom, then close the window." Yellow
 
-# ПРОГРЕСС-БАР (ОДНА СТРОКА, 150 мс)
 Write-Host -NoNewline "Progress: [ "
 for ($i = 0; $i -lt 10; $i++) {
     Start-Sleep -Milliseconds 150
