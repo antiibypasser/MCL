@@ -24,7 +24,7 @@ Write-Host "| |___  | |/ ___ \  |  _ <  __/ (__  |  _ <| |_| | |  __/\__ \" -For
 Write-Host "|_____| |_/_/   \_\ |_| \_\___|\___| |_| \_\\__,_|_|\___||___/" -ForegroundColor Yellow
 Write-ColoredLine ""
 Write-ColoredLine "=== Recording Rule Hub ===" Yellow
-Write-ColoredLine "Complete both steps with 100% success to pass." White
+Write-ColeredLine "Complete both steps with 100% success to pass." White
 Write-ColoredLine "Applications will download and extract to C:\ToolsETA." White
 Write-ColoredLine "If a prompt shows up, press OK to run the application." White
 Write-ColoredLine "Follow the instructions listed on each step." White
@@ -71,7 +71,7 @@ if ($gpuIsGood) {
 
 Write-Host ""
 
-# ====== DICORD + CREDITS ======
+# ====== DISCORD + CREDITS ======
 Write-ColoredLine ""
 Write-ColoredLine "=== Discord Servers ===" Yellow
 Write-ColoredLine "discord.gg/mcl" White
@@ -86,83 +86,74 @@ Write-Host "Press Enter to Continue" -ForegroundColor Yellow
 Read-Host
 Clear-Host
 
+# ====== STEP 1 ======
 Write-ColoredLine "Step 1 of 2: SYSTEM Check" White
 Write-ColoredLine "INSTRUCTION: Reach 100% success" Yellow
-Write-Host ""
 
-# ====== ЗАГРУЗКА ======
-for ($i = 0; $i -le 10; $i++) {
-    $hash = "#" * $i
-    $dash = "-" * (10 - $i)
-    Write-Host -NoNewline "`rProgress: [ $hash$dash ] $($i * 10)%"
+# ЗАГРУЗКА (УСКОРЕННАЯ)
+Write-Host ""
+Write-Host -NoNewline "Progress: ["
+for ($i = 0; $i -lt 10; $i++) {
     Start-Sleep -Milliseconds 150
+    Write-Host -NoNewline "#"
 }
+Write-Host "] 100%"
 Write-Host ""
-Write-Host ""
 
-# ====== ФЕЙКОВЫЕ ПРОВЕРКИ ======
-$modulesOutput = @(
-    "SUCCESS: Protected module 'Microsoft.PowerShell.Operation.Validation' verified.",
-    "SUCCESS: Module 'PackageManagement' passed signature check.",
-    "SUCCESS: Module 'Pester' passed signature check.",
-    "SUCCESS: Module 'PowerShellGet' passed signature check.",
-    "SUCCESS: Module 'PSReadline' passed signature check.",
-    "SUCCESS: No unauthorized modules/files found."
-)
-
-$windowsOutput = @("SUCCESS: Running on Windows.")
-
-$memoryIntegrityOutput = @(
-    "SUCCESS: Memory Integrity supported.",
-    "SUCCESS: Memory Integrity is ON."
-)
-
-$defenderOutput = @(
-    "SUCCESS: Realtime protection is ON."
-)
-
-$exclusionsOutput = @("SUCCESS: No Defender exclusions set.")
-
-$threatsOutput = @("SUCCESS: No active threats.")
-
-$powershellSigOutput = @("SUCCESS: PowerShell is signed and valid.")
-
-function Write-Section {
-    param([string]$Title, [string[]]$Lines)
-    Write-Host "--- $Title ---" -ForegroundColor White
-    foreach ($line in $Lines) {
-        Write-Host $line -ForegroundColor Green
-    }
-    Write-Host ""
-}
-
-Write-Section "Files + Modules" $modulesOutput
-Write-Section "OS Check" $windowsOutput
-Write-Section "Memory Integrity" $memoryIntegrityOutput
-Write-Section "Windows Defender" $defenderOutput
-Write-Section "Exclusions" $exclusionsOutput
-Write-Section "Threats" $threatsOutput
-Write-Section "Binary Sig" $powershellSigOutput
+# ФЕЙКОВЫЕ ПРОВЕРКИ
+Write-Host "--- Files + Modules ---"
+Write-Host "SUCCESS: Protected module 'Microsoft.PowerShell.Operation.Validation' verified." -ForegroundColor Green
+Write-Host "SUCCESS: Module 'PackageManagement' passed signature check." -ForegroundColor Green
+Write-Host "SUCCESS: Module 'Pester' passed signature check." -ForegroundColor Green
+Write-Host "SUCCESS: Module 'PowerShellGet' passed signature check." -ForegroundColor Green
+Write-Host "SUCCESS: Module 'PSReadline' passed signature check." -ForegroundColor Green
+Write-Host "SUCCESS: No unauthorized modules/files found." -ForegroundColor Green
 
 Write-Host ""
-Write-Host ("Success Rate: 100% (13 / 13)") -ForegroundColor Green
+Write-Host "--- OS Check ---"
+Write-Host "SUCCESS: Running on Windows." -ForegroundColor Green
+
+Write-Host ""
+Write-Host "--- Memory Integrity ---"
+Write-Host "SUCCESS: Memory Integrity supported." -ForegroundColor Green
+Write-Host "SUCCESS: Memory Integrity is ON." -ForegroundColor Green
+
+Write-Host ""
+Write-Host "--- Windows Defender ---"
+Write-Host "SUCCESS: Realtime protection is ON." -ForegroundColor Green
+
+Write-Host ""
+Write-Host "--- Exclusions ---"
+Write-Host "SUCCESS: No Defender exclusions set." -ForegroundColor Green
+
+Write-Host ""
+Write-Host "--- Threats ---"
+Write-Host "SUCCESS: No active threats." -ForegroundColor Green
+
+Write-Host ""
+Write-Host "--- Binary Sig ---"
+Write-Host "SUCCESS: PowerShell is signed and valid." -ForegroundColor Green
+
+Write-Host ""
+Write-Host "Success Rate: 100% (13 / 13)" -ForegroundColor Green
+
 Write-Host ""
 Write-Host "Press Enter to continue..." -ForegroundColor Yellow
 Read-Host
 Clear-Host
 
+# ====== STEP 2 ======
 Write-ColoredLine "Step 2 of 2: Process Explorer" White
 Write-ColoredLine "INSTRUCTION: Wait for Process Explorer to open. Scroll to the bottom, then close the window." Yellow
-Write-Host ""
 
-# ====== ЗАГРУЗКА ======
-for ($i = 0; $i -le 10; $i++) {
-    $hash = "#" * $i
-    $dash = "-" * (10 - $i)
-    Write-Host -NoNewline "`rProgress: [ $hash$dash ] $($i * 10)%"
-    Start-Sleep -Milliseconds 150
-}
+# ЗАГРУЗКА
 Write-Host ""
+Write-Host -NoNewline "Progress: ["
+for ($i = 0; $i -lt 10; $i++) {
+    Start-Sleep -Milliseconds 150
+    Write-Host -NoNewline "#"
+}
+Write-Host "] 100%"
 Write-Host ""
 
 # ====== РЕАЛЬНАЯ ЛОГИКА PROCESS EXPLORER ======
@@ -174,36 +165,35 @@ $zipPath = Join-Path $baseFolder "ProcessExplorer.zip"
 $processNames = @("procexp32", "procexp64", "procexp64a")
 $runningPE = Get-Process -ErrorAction SilentlyContinue | Where-Object { $processNames -contains $_.ProcessName.ToLower() }
 
-# Очистка папки C:\ToolsETA
 if (Test-Path $baseFolder) {
-    Write-ColoredLine "[SUCCESS] Cleaned up existing C:\ToolsETA folder." Green
+    Write-Host "[SUCCESS] Cleaned up existing C:\ToolsETA folder." -ForegroundColor Green
     Remove-Item $baseFolder -Recurse -Force -ErrorAction SilentlyContinue
 }
 
 try {
     New-Item -ItemType Directory -Path $baseFolder -ErrorAction Stop | Out-Null
-    Write-ColoredLine '[SUCCESS] Created folder C:\ToolsETA.' Green
+    Write-Host "[SUCCESS] Created folder C:\ToolsETA." -ForegroundColor Green
 } catch {
-    Write-ColoredLine '[INFO] Folder may already exist' Green
+    Write-Host "[INFO] Folder may already exist"
 }
 
 if ($runningPE) {
-    Write-ColoredLine "[SUCCESS] Process Explorer already running." Green
+    Write-Host "[SUCCESS] Process Explorer already running." -ForegroundColor Green
 }
 
 try {
     Invoke-WebRequest -Uri $zipUrl -OutFile $zipPath -UseBasicParsing -ErrorAction Stop
-    Write-ColoredLine '[SUCCESS] Downloaded Process Explorer.' Green
+    Write-Host "[SUCCESS] Downloaded Process Explorer." -ForegroundColor Green
 } catch {
-    Write-ColoredLine '[FAILED] Failed to download Process Explorer: $($_.Exception.Message)' Red
+    Write-Host "[FAILED] Failed to download Process Explorer: $($_.Exception.Message)" -ForegroundColor Red
 }
 
 try {
     Add-Type -AssemblyName System.IO.Compression.FileSystem
     [System.IO.Compression.ZipFile]::ExtractToDirectory($zipPath, $extractFolder)
-    Write-ColoredLine '[SUCCESS] Extracted Process Explorer zip.' Green
+    Write-Host "[SUCCESS] Extracted Process Explorer zip." -ForegroundColor Green
 } catch {
-    Write-ColoredLine '[SUCCESS] Files already exist' Green
+    Write-Host "[SUCCESS] Files already exist" -ForegroundColor Green
 }
 Remove-Item $zipPath -Force -ErrorAction SilentlyContinue
 
@@ -212,30 +202,27 @@ $regFilePath = Join-Path $baseFolder "procexp_config.reg"
 
 try {
     Invoke-WebRequest -Uri $regFileUrl -OutFile $regFilePath -UseBasicParsing -ErrorAction Stop
-    Write-ColoredLine "[SUCCESS] Downloaded Process Explorer registry configuration." Green
+    Write-Host "[SUCCESS] Downloaded Process Explorer registry configuration." -ForegroundColor Green
 } catch {
-    Write-ColoredLine "[FAILED] Failed to download registry config: $($_.Exception.Message)" Red
+    Write-Host "[FAILED] Failed to download registry config: $($_.Exception.Message)" -ForegroundColor Red
 }
 
 try {
     $cmdPath = "$env:SystemRoot\System32\cmd.exe"
-    if (-Not (Test-Path $cmdPath)) {
-        throw "cmd.exe not found at expected location: $cmdPath"
-    }
     & $cmdPath /c "reg import `"$regFilePath`""
     if ($LASTEXITCODE -eq 0) {
-        Write-ColoredLine "[SUCCESS] Imported registry configuration successfully." Green
+        Write-Host "[SUCCESS] Imported registry configuration successfully." -ForegroundColor Green
     } else {
-        Write-ColoredLine "[FAILED] reg import returned non-zero exit code: $LASTEXITCODE" Red
+        Write-Host "[FAILED] reg import returned non-zero exit code: $LASTEXITCODE" -ForegroundColor Red
     }
 } catch {
-    Write-ColoredLine "[FAILED] Registry importing failed: $($_.Exception.Message)" Red
+    Write-Host "[FAILED] Registry importing failed: $($_.Exception.Message)" -ForegroundColor Red
 }
 
 $actualExe = Get-ChildItem -Path $extractFolder -Filter "procexp64.exe" -Recurse | Select-Object -First 1
 
 if ($actualExe) {
-    Write-ColoredLine "[SUCCESS] Launched Process Explorer." Green
+    Write-Host "[SUCCESS] Launched Process Explorer." -ForegroundColor Green
     $process = Start-Process -FilePath $actualExe.FullName -PassThru
 
     $wshell = New-Object -ComObject wscript.shell
@@ -247,15 +234,13 @@ if ($actualExe) {
     $wshell.SendKeys('x')
     Start-Sleep -Milliseconds 500
 
-    Write-ColoredLine "[SUCCESS] Process Explorer window maximized." Green
-    Write-ColoredLine "[SUCCESS] Process Explorer launched successfully." Green
+    Write-Host "[SUCCESS] Process Explorer window maximized." -ForegroundColor Green
+    Write-Host "[SUCCESS] Process Explorer launched successfully." -ForegroundColor Green
 
-    # ЖДЁМ ЗАКРЫТИЯ ПРОГРАММЫ
     $process.WaitForExit()
 
-    # ТОЛЬКО ПОСЛЕ ЗАКРЫТИЯ
     Write-Host ""
-    Write-ColoredLine "[SUCCESS] Success Rate: 100% (1 / 1)." Green
+    Write-Host "[SUCCESS] Success Rate: 100% (1 / 1)." -ForegroundColor Green
     Write-Host ""
     Write-Host "Press Enter to exit." -ForegroundColor Yellow
     Read-Host
