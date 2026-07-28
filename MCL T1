@@ -90,7 +90,7 @@ Write-ColoredLine "Step 1 of 2: SYSTEM Check" White
 Write-ColoredLine "INSTRUCTION: Reach 100% success" Yellow
 Write-Host ""
 
-# ====== ЗАГРУЗКА (УСКОРЕННАЯ) ======
+# ====== ЗАГРУЗКА ======
 for ($i = 0; $i -le 10; $i++) {
     $hash = "#" * $i
     $dash = "-" * (10 - $i)
@@ -100,7 +100,7 @@ for ($i = 0; $i -le 10; $i++) {
 Write-Host ""
 Write-Host ""
 
-# ====== ФЕЙКОВЫЕ ПРОВЕРКИ (ВСЁ ЗЕЛЁНОЕ) ======
+# ====== ФЕЙКОВЫЕ ПРОВЕРКИ ======
 $modulesOutput = @(
     "SUCCESS: Protected module 'Microsoft.PowerShell.Operation.Validation' verified.",
     "SUCCESS: Module 'PackageManagement' passed signature check.",
@@ -155,7 +155,7 @@ Write-ColoredLine "Step 2 of 2: Process Explorer" White
 Write-ColoredLine "INSTRUCTION: Wait for Process Explorer to open. Scroll to the bottom, then close the window." Yellow
 Write-Host ""
 
-# ====== ЗАГРУЗКА (КАК НА ФОТКЕ) ======
+# ====== ЗАГРУЗКА ======
 for ($i = 0; $i -le 10; $i++) {
     $hash = "#" * $i
     $dash = "-" * (10 - $i)
