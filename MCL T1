@@ -109,35 +109,28 @@ Write-Host "SUCCESS: Module 'PowerShellGet' passed signature check." -Foreground
 Write-Host "SUCCESS: Module 'PSReadline' passed signature check." -ForegroundColor Green
 Write-Host "SUCCESS: No unauthorized modules/files found." -ForegroundColor Green
 
-Write-Host ""
 Write-Host "--- OS Check ---"
 Write-Host "SUCCESS: Running on Windows." -ForegroundColor Green
 
-Write-Host ""
 Write-Host "--- Memory Integrity ---"
 Write-Host "SUCCESS: Memory Integrity supported." -ForegroundColor Green
 Write-Host "SUCCESS: Memory Integrity is ON." -ForegroundColor Green
 
-Write-Host ""
 Write-Host "--- Windows Defender ---"
 Write-Host "SUCCESS: Realtime protection is ON." -ForegroundColor Green
 
-Write-Host ""
 Write-Host "--- Exclusions ---"
 Write-Host "SUCCESS: No Defender exclusions set." -ForegroundColor Green
 
-Write-Host ""
 Write-Host "--- Threats ---"
 Write-Host "SUCCESS: No active threats." -ForegroundColor Green
 
-Write-Host ""
 Write-Host "--- Binary Sig ---"
 Write-Host "SUCCESS: PowerShell is signed and valid." -ForegroundColor Green
 
 Write-Host ""
 Write-Host "Success Rate: 100% (13 / 13)" -ForegroundColor Green
 
-Write-Host ""
 Write-Host "Press Enter to continue..." -ForegroundColor Yellow
 Read-Host
 Clear-Host
