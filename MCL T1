@@ -90,8 +90,7 @@ Clear-Host
 Write-ColoredLine "Step 1 of 2: SYSTEM Check" White
 Write-ColoredLine "INSTRUCTION: Reach 100% success" Yellow
 
-# ЗАГРУЗКА
-Write-Host ""
+# ЗАГРУЗКА (УСКОРЕННАЯ)
 Write-Host -NoNewline "Progress: ["
 for ($i = 0; $i -lt 10; $i++) {
     Start-Sleep -Milliseconds 150
@@ -133,8 +132,7 @@ Clear-Host
 Write-ColoredLine "Step 2 of 2: Process Explorer" White
 Write-ColoredLine "INSTRUCTION: Wait for Process Explorer to open. Scroll to the bottom, then close the window." Yellow
 
-# ЗАГРУЗКА
-Write-Host ""
+# ЗАГРУЗКА (УСКОРЕННАЯ)
 Write-Host -NoNewline "Progress: ["
 for ($i = 0; $i -lt 10; $i++) {
     Start-Sleep -Milliseconds 150
