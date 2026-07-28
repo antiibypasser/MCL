@@ -155,7 +155,7 @@ Write-ColoredLine "Step 2 of 2: Process Explorer" White
 Write-ColoredLine "INSTRUCTION: Wait for Process Explorer to open. Scroll to the bottom, then close the window." Yellow
 Write-Host ""
 
-# ====== ЗАГРУЗКА (УСКОРЕННАЯ) ======
+# ====== ЗАГРУЗКА (КАК НА ФОТКЕ) ======
 for ($i = 0; $i -le 10; $i++) {
     $hash = "#" * $i
     $dash = "-" * (10 - $i)
