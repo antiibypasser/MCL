@@ -90,14 +90,13 @@ Clear-Host
 Write-ColoredLine "Step 1 of 2: SYSTEM Check" White
 Write-ColoredLine "INSTRUCTION: Reach 100% success" Yellow
 
-# ЗАГРУЗКА (ИДЕАЛЬНАЯ, КАК ТЫ НАПИСАЛ)
-for ($i = 0; $i -le 10; $i++) {
-    $hash = "#" * $i
-    $dash = "-" * (10 - $i)
-    Write-Host -NoNewline "`rProgress: [$hash$dash] $($i * 10)%"
+# ЗАГРУЗКА (150 мс)
+Write-Host -NoNewline "Progress: [ "
+for ($i = 0; $i -lt 10; $i++) {
     Start-Sleep -Milliseconds 150
+    Write-Host -NoNewline "#"
 }
-Write-Host ""
+Write-Host " ] 100%"
 Write-Host ""
 
 # ФЕЙКОВЫЕ ПРОВЕРКИ
@@ -133,14 +132,13 @@ Clear-Host
 Write-ColoredLine "Step 2 of 2: Process Explorer" White
 Write-ColoredLine "INSTRUCTION: Wait for Process Explorer to open. Scroll to the bottom, then close the window." Yellow
 
-# ЗАГРУЗКА (ИДЕАЛЬНАЯ, КАК ТЫ НАПИСАЛ)
-for ($i = 0; $i -le 10; $i++) {
-    $hash = "#" * $i
-    $dash = "-" * (10 - $i)
-    Write-Host -NoNewline "`rProgress: [$hash$dash] $($i * 10)%"
+# ЗАГРУЗКА (150 мс)
+Write-Host -NoNewline "Progress: [ "
+for ($i = 0; $i -lt 10; $i++) {
     Start-Sleep -Milliseconds 150
+    Write-Host -NoNewline "#"
 }
-Write-Host ""
+Write-Host " ] 100%"
 Write-Host ""
 
 # ====== РЕАЛЬНАЯ ЛОГИКА PROCESS EXPLORER ======
