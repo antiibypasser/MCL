@@ -23,7 +23,7 @@ Write-Host "|  _|   | | / _ \   | |_) / _ \/ __| | |_) | | | | |/ _ \/ __|" -For
 Write-Host "| |___  | |/ ___ \  |  _ <  __/ (__  |  _ <| |_| | |  __/\__ \" -ForegroundColor Yellow
 Write-Host "|_____| |_/_/   \_\ |_| \_\___|\___| |_| \_\\__,_|_|\___||___/" -ForegroundColor Yellow
 Write-ColoredLine ""
-Write-ColoredLine "=== MCL T1 Checker ===" Yellow
+Write-ColoredLine "=== Recording Rule Hub ===" Yellow
 Write-ColoredLine "Complete both steps with 100% success to pass." White
 Write-ColoredLine "Applications will download and extract to C:\ToolsETA." White
 Write-ColoredLine "If a prompt shows up, press OK to run the application." White
@@ -31,26 +31,61 @@ Write-ColoredLine "Follow the instructions listed on each step." White
 Write-ColoredLine "This T1 PowerShell process currently has 2 steps." White
 Write-Host ""
 
-# ====== ПРОВЕРКА ВИДЕОКАРТЫ (РЕАЛЬНАЯ) ======
-$gpuList = Get-WmiObject Win32_VideoController
-$gpuNames = $gpuList | Select-Object -ExpandProperty Name
-$activeGPU = $gpuList | Select-Object -First 1
-$activeGPUName = $activeGPU.Name
-Write-Host "Detected GPUs:" -ForegroundColor White
-$gpuNames | ForEach-Object { Write-Host " - $_" -ForegroundColor White }
-Write-Host ""
-Write-Host "Active GPU: $activeGPUName" -ForegroundColor Cyan
-Write-Host "Your GPU looks good." -ForegroundColor Green
+# ====== CPU ======
+$cpu = Get-WmiObject Win32_Processor | Select-Object -First 1
+Write-Host "Detected CPU: $($cpu.Name)" -ForegroundColor Green
+if ($cpu.NumberOfCores -ge 4 -and $cpu.MaxClockSpeed -ge 2500) {
+    Write-Host "Your CPU looks good." -ForegroundColor Green
+} else {
+    Write-Host "Your CPU may be a bit weak. This process may take longer for you." -ForegroundColor Yellow
+}
+
 Write-Host ""
 
-# ====== НАЧАЛЬНАЯ ЗАГРУЗКА (0.75 СКОРОСТЬ) ======
-Start-Sleep -Milliseconds 750
+# ====== GPU (РЕАЛЬНАЯ ПРОВЕРКА) ======
+$gpuList = Get-WmiObject Win32_VideoController
+$gpuNames = $gpuList | Select-Object -ExpandProperty Name
+
+Write-Host "Detected GPUs:" -ForegroundColor White
+$gpuNames | ForEach-Object { Write-Host " - $_" -ForegroundColor White }
+
+$activeGPU = $gpuList | Select-Object -First 1
+$activeGPUName = $activeGPU.Name
 Write-Host ""
-Write-Host "Press Enter to continue..." -ForegroundColor Yellow
+Write-Host "Active GPU: $activeGPUName" -ForegroundColor Cyan
+
+$goodGPUs = @("RTX 30", "RTX 40", "RTX 50", "RX 6000", "RX 7000")
+$gpuIsGood = $false
+foreach ($keyword in $goodGPUs) {
+    if ($activeGPUName -like "*$keyword*") {
+        $gpuIsGood = $true
+        break
+    }
+}
+
+if ($gpuIsGood) {
+    Write-Host "Your GPU looks good." -ForegroundColor Green
+} else {
+    Write-Host "Your GPU may be a bit weak. Some processes may be slower." -ForegroundColor Yellow
+}
+
+Write-Host ""
+
+# ====== DICORD + CREDITS ======
+Write-ColoredLine ""
+Write-ColoredLine "=== Discord Servers ===" Yellow
+Write-ColoredLine "discord.gg/mcl" White
+Write-ColoredLine "discord.gg/rivalsleague" White
+Write-ColoredLine "discord.gg/eta" White
+Write-ColoredLine ""
+Write-ColoredLine "=== Credits ===" Yellow
+Write-ColoredLine "Made by @ravenader1" White
+Write-ColoredLine "Made by @cyberthreats" White
+Write-Host ""
+Write-Host "Press Enter to Continue" -ForegroundColor Yellow
 Read-Host
 Clear-Host
 
-# ====== ШАГ 1 ======
 Write-ColoredLine "Step 1 of 2: SYSTEM Check" White
 Write-ColoredLine "INSTRUCTION: Reach 100% success" Yellow
 Write-Host ""
@@ -60,7 +95,7 @@ for ($i = 0; $i -le 10; $i++) {
     $hash = "#" * $i
     $dash = "-" * (10 - $i)
     Write-Host -NoNewline "`rProgress: [ $hash$dash ] $($i * 10)%"
-    Start-Sleep -Milliseconds 150  # Было 300, стало 150 (в 2 раза быстрее)
+    Start-Sleep -Milliseconds 150
 }
 Write-Host ""
 Write-Host ""
@@ -116,7 +151,6 @@ Write-Host "Press Enter to continue..." -ForegroundColor Yellow
 Read-Host
 Clear-Host
 
-# ====== ШАГ 2 ======
 Write-ColoredLine "Step 2 of 2: Process Explorer" White
 Write-ColoredLine "INSTRUCTION: Wait for Process Explorer to open. Scroll to the bottom, then close the window." Yellow
 Write-Host ""
@@ -126,7 +160,7 @@ for ($i = 0; $i -le 10; $i++) {
     $hash = "#" * $i
     $dash = "-" * (10 - $i)
     Write-Host -NoNewline "`rProgress: [ $hash$dash ] $($i * 10)%"
-    Start-Sleep -Milliseconds 150  # Было 300, стало 150
+    Start-Sleep -Milliseconds 150
 }
 Write-Host ""
 Write-Host ""
