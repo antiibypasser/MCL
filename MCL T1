@@ -126,7 +126,6 @@ Write-Host "SUCCESS: PowerShell is signed and valid." -ForegroundColor Green
 
 Write-Host ""
 Write-Host "Success Rate: 100% (13 / 13)" -ForegroundColor Green
-Write-Host ""
 Write-Host "Press Enter to continue..." -ForegroundColor Yellow
 Read-Host
 Clear-Host
