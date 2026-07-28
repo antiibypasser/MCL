@@ -24,7 +24,7 @@ Write-Host "| |___  | |/ ___ \  |  _ <  __/ (__  |  _ <| |_| | |  __/\__ \" -For
 Write-Host "|_____| |_/_/   \_\ |_| \_\___|\___| |_| \_\\__,_|_|\___||___/" -ForegroundColor Yellow
 Write-ColoredLine ""
 Write-ColoredLine "=== Recording Rule Hub ===" Yellow
-Write-ColeredLine "Complete both steps with 100% success to pass." White
+Write-ColoredLine "Complete both steps with 100% success to pass." White
 Write-ColoredLine "Applications will download and extract to C:\ToolsETA." White
 Write-ColoredLine "If a prompt shows up, press OK to run the application." White
 Write-ColoredLine "Follow the instructions listed on each step." White
@@ -90,7 +90,7 @@ Clear-Host
 Write-ColoredLine "Step 1 of 2: SYSTEM Check" White
 Write-ColoredLine "INSTRUCTION: Reach 100% success" Yellow
 
-# ЗАГРУЗКА (УСКОРЕННАЯ)
+# ЗАГРУЗКА
 Write-Host ""
 Write-Host -NoNewline "Progress: ["
 for ($i = 0; $i -lt 10; $i++) {
@@ -108,29 +108,23 @@ Write-Host "SUCCESS: Module 'Pester' passed signature check." -ForegroundColor G
 Write-Host "SUCCESS: Module 'PowerShellGet' passed signature check." -ForegroundColor Green
 Write-Host "SUCCESS: Module 'PSReadline' passed signature check." -ForegroundColor Green
 Write-Host "SUCCESS: No unauthorized modules/files found." -ForegroundColor Green
-
 Write-Host "--- OS Check ---"
 Write-Host "SUCCESS: Running on Windows." -ForegroundColor Green
-
 Write-Host "--- Memory Integrity ---"
 Write-Host "SUCCESS: Memory Integrity supported." -ForegroundColor Green
 Write-Host "SUCCESS: Memory Integrity is ON." -ForegroundColor Green
-
 Write-Host "--- Windows Defender ---"
 Write-Host "SUCCESS: Realtime protection is ON." -ForegroundColor Green
-
 Write-Host "--- Exclusions ---"
 Write-Host "SUCCESS: No Defender exclusions set." -ForegroundColor Green
-
 Write-Host "--- Threats ---"
 Write-Host "SUCCESS: No active threats." -ForegroundColor Green
-
 Write-Host "--- Binary Sig ---"
 Write-Host "SUCCESS: PowerShell is signed and valid." -ForegroundColor Green
 
 Write-Host ""
 Write-Host "Success Rate: 100% (13 / 13)" -ForegroundColor Green
-
+Write-Host ""
 Write-Host "Press Enter to continue..." -ForegroundColor Yellow
 Read-Host
 Clear-Host
