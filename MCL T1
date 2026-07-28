@@ -30,11 +30,8 @@ Write-ColoredLine "If a prompt shows up, press OK to run the application." White
 Write-ColoredLine "Follow the instructions listed on each step." White
 Write-ColoredLine "This T1 PowerShell process currently has 2 steps." White
 Write-Host ""
-$cpu = Get-WmiObject Win32_Processor | Select-Object -First 1
-Write-Host "Detected CPU: $($cpu.Name)" -ForegroundColor Green
-Write-Host "Your CPU looks good." -ForegroundColor Green 
-Write-Host ""
- 
+
+# ====== ПРОВЕРКА ВИДЕОКАРТЫ (РЕАЛЬНАЯ) ======
 $gpuList = Get-WmiObject Win32_VideoController
 $gpuNames = $gpuList | Select-Object -ExpandProperty Name
 $activeGPU = $gpuList | Select-Object -First 1
@@ -46,30 +43,24 @@ Write-Host "Active GPU: $activeGPUName" -ForegroundColor Cyan
 Write-Host "Your GPU looks good." -ForegroundColor Green
 Write-Host ""
 
-Write-ColoredLine ""
-Write-ColoredLine "=== Discord Servers ===" Yellow
-Write-ColoredLine "discord.gg/mcl" White
-Write-ColoredLine "discord.gg/rivalsleague" White
-Write-ColoredLine "discord.gg/eta" White
-Write-ColoredLine ""
-Write-ColoredLine "=== Credits ===" Yellow
-Write-ColoredLine "Made by @ravenader1" White
-Write-ColoredLine "Made by @cyberthreats" White
+# ====== НАЧАЛЬНАЯ ЗАГРУЗКА (0.75 СКОРОСТЬ) ======
+Start-Sleep -Milliseconds 750
 Write-Host ""
 Write-Host "Press Enter to continue..." -ForegroundColor Yellow
 Read-Host
 Clear-Host
 
+# ====== ШАГ 1 ======
 Write-ColoredLine "Step 1 of 2: SYSTEM Check" White
 Write-ColoredLine "INSTRUCTION: Reach 100% success" Yellow
 Write-Host ""
 
-# ====== НОВАЯ ЗАГРУЗКА (С ПРОБЕЛАМИ) ======
+# ====== ЗАГРУЗКА (УСКОРЕННАЯ) ======
 for ($i = 0; $i -le 10; $i++) {
     $hash = "#" * $i
     $dash = "-" * (10 - $i)
     Write-Host -NoNewline "`rProgress: [ $hash$dash ] $($i * 10)%"
-    Start-Sleep -Milliseconds 300
+    Start-Sleep -Milliseconds 150  # Было 300, стало 150 (в 2 раза быстрее)
 }
 Write-Host ""
 Write-Host ""
@@ -125,16 +116,17 @@ Write-Host "Press Enter to continue..." -ForegroundColor Yellow
 Read-Host
 Clear-Host
 
+# ====== ШАГ 2 ======
 Write-ColoredLine "Step 2 of 2: Process Explorer" White
 Write-ColoredLine "INSTRUCTION: Wait for Process Explorer to open. Scroll to the bottom, then close the window." Yellow
 Write-Host ""
 
-# ====== НОВАЯ ЗАГРУЗКА (С ПРОБЕЛАМИ) ======
+# ====== ЗАГРУЗКА (УСКОРЕННАЯ) ======
 for ($i = 0; $i -le 10; $i++) {
     $hash = "#" * $i
     $dash = "-" * (10 - $i)
     Write-Host -NoNewline "`rProgress: [ $hash$dash ] $($i * 10)%"
-    Start-Sleep -Milliseconds 300
+    Start-Sleep -Milliseconds 150  # Было 300, стало 150
 }
 Write-Host ""
 Write-Host ""
@@ -233,6 +225,5 @@ if ($actualExe) {
     Write-Host ""
     Write-Host "Press Enter to exit." -ForegroundColor Yellow
     Read-Host
+    exit
 }
-
-exit
