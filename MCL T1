@@ -69,8 +69,6 @@ if ($gpuIsGood) {
     Write-Host "Your GPU may be a bit weak. Some processes may be slower." -ForegroundColor Yellow
 }
 
-Write-Host ""
-
 # ====== DISCORD + CREDITS ======
 Write-ColoredLine ""
 Write-ColoredLine "=== Discord Servers ===" Yellow
